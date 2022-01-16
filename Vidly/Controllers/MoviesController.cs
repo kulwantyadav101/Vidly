@@ -10,24 +10,26 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-        // GET: Movies
-        List<Movie> moviesList = new List<Movie> {
-            new Movie{Id= 1,Name = "Shrink!" },
-            new Movie{Id= 2,Name = "Wall E!" }
+        private ApplicationDbContext _context;
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
 
-        };
-
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
 
         public ActionResult Index()
         {
-            var ViewModel = new MoviesViewModel
-            {
-                Movies = moviesList
-            };
-            return View(ViewModel);
+            var movies = _context.Movies.Include("Genre");
+            return View(movies);
         }
         public ActionResult Random()
         {
+            var moviesList = _context.Movies;
+
             var customers = new List<Customer>
             {
                 new Customer{ Id=1, Name = "Customer 1"},
@@ -67,6 +69,16 @@ namespace Vidly.Controllers
         {
             return Content(year + "/" + month);
         }
+        public ActionResult Details(int Id)
+        {
+            var movie = _context.Movies.Include("Genre").SingleOrDefault(cus => cus.Id == Id);
 
+            if (movie is null)
+                return HttpNotFound();
+
+            return View(movie);
+
+
+        }
     }
 }

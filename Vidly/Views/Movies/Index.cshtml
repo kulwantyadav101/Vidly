@@ -1,50 +1,44 @@
-﻿
-@model Vidly.ViewModel.MoviesViewModel
+﻿@model IEnumerable<Vidly.Models.Movie>
+@*
+        Note: I've set the model for this view to IEnumerable<@model IEnumerable<Vidly.Models.Movie>
+    @*
+        Note: I've set the model for this view to IEnumerable<Movie>.
+        This is a simple interface implemented by the list class. Since
+        in this view we only want to iterate over this list, and we don't
+        need any of the operations in the List class (eg Add, Remove, etc),
+        it's better to use the IEnumerable interface, which allows use to
+        iterate over the list. If in the future, we replace the List with a
+        different data structure, as long as it is enumerable, our view code
+        will remain unchanged.
+*@
+
 @{
     ViewBag.Title = "Movies";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Movies</h2>
-<style>
-    table, th, td {
-        border: 1px solid #ddd;
-        background-color: transparent;
-        width: 100%;
-        max-width: 100%;
-        margin-bottom: 20px;
-        background-color: transparent;
-    }
-
-    tr:hover {
-        background-color: #f5f5f5;
-    }
-</style>
-
-
-@if (Model.Movies.Count == 0)
+@if (!Model.Any())
 {
-    <text> We don't have any Movies Yet.</text>
+    <p>We don't have any Movies yet.</p>
 }
 else
 {
-
-    <body>
-        <table>
+    <table class="table table-bordered table-hover">
+        <thead>
             <tr>
-                <td><span style='font-weight:bold;'>Movies</span></td>
+                <th>Movie</th>
+                <th>Genre</th>
             </tr>
-
-            @foreach (var movie in Model.Movies)
+        </thead>
+        <tbody>
+            @foreach (var Movie in Model)
             {
                 <tr>
-                    <td>
-                        @movie.Name
-                    </td>
+                    <td>@Html.ActionLink(Movie.Name, "Details", "Movies", new { id = Movie.Id }, null)</td>
+                    <td>@Movie.Genre.Name</td>
                 </tr>
             }
-        </table>
-    </body>
+        </tbody>
+    </table>
 }
-
-
