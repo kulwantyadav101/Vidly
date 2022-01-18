@@ -20,7 +20,37 @@ namespace Vidly.Controllers
         {
             _context.Dispose();
         }
+        public ActionResult New()
+        {
+            var genres = _context.Genres.ToList();
+            var movieFormrmViewModel = new MoviesFormViewModel
+            {
+                Genres = genres
+            };
+            return View(movieFormrmViewModel);
+        }
+        public ActionResult Save(Movie movie)
+        {
+            if (movie != null)
+            {
+                _context.Movies.Add(movie);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index", "Movie");
+        }
 
+        public ActionResult Edit(int Id)
+        {
+            var movieIndb = _context.Movies.Include("Genre").SingleOrDefault(m => m.Id == Id);
+            
+            var movieFormViewModel = new MoviesFormViewModel
+            {
+                Movie = movieIndb,
+                Genres = _context.Genres.ToList()
+
+            };
+            return View("MoviesForm", movieFormViewModel);
+        }
         public ActionResult Index()
         {
             var movies = _context.Movies.Include("Genre");
@@ -51,14 +81,14 @@ namespace Vidly.Controllers
             //RedirectToAction("Index", "Home", new { page = 1, shortby = "name" });
         }
 
-        public ActionResult Edit(int? movieId)
-        {
-            if (!movieId.HasValue)
-            {
-                movieId = 1;
-            }
-            return Content("Id=" + movieId.Value);
-        }
+        //public ActionResult Edit(int? movieId)
+        //{
+        //    if (!movieId.HasValue)
+        //    {
+        //        movieId = 1;
+        //    }
+        //    return Content("Id=" + movieId.Value);
+        //}
 
         public ActionResult ByReleaseDate(int year, int month)
         {
