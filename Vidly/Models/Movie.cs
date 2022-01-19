@@ -11,9 +11,7 @@ namespace Vidly.Models
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
-
-        
+        public string Name { get; set; }        
         public Genre Genre { get; set; }
 
         [Required]
@@ -28,6 +26,7 @@ namespace Vidly.Models
 
         [Required]
         [Display(Name = "Number in Stock")]
+        [Range(1,20,ErrorMessage ="Number of stock should be between 1 to 20")]
         public int NumberInStock { get; set; }
 
 

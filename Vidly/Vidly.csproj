@@ -256,6 +256,10 @@
     <Compile Include="Migrations\202201182107290_AddedCustomerAndMoviesForm.Designer.cs">
       <DependentUpon>202201182107290_AddedCustomerAndMoviesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201191741369_ImplementingValidation.cs" />
+    <Compile Include="Migrations\202201191741369_ImplementingValidation.Designer.cs">
+      <DependentUpon>202201191741369_ImplementingValidation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -415,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201182107290_AddedCustomerAndMoviesForm.resx">
       <DependentUpon>202201182107290_AddedCustomerAndMoviesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201191741369_ImplementingValidation.resx">
+      <DependentUpon>202201191741369_ImplementingValidation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
