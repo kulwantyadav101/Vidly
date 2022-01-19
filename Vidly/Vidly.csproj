@@ -260,6 +260,14 @@
     <Compile Include="Migrations\202201191741369_ImplementingValidation.Designer.cs">
       <DependentUpon>202201191741369_ImplementingValidation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201191851222_updateMovieModel.cs" />
+    <Compile Include="Migrations\202201191851222_updateMovieModel.Designer.cs">
+      <DependentUpon>202201191851222_updateMovieModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201191853404_updateMovieModelUpdate.cs" />
+    <Compile Include="Migrations\202201191853404_updateMovieModelUpdate.Designer.cs">
+      <DependentUpon>202201191853404_updateMovieModelUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -422,6 +430,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201191741369_ImplementingValidation.resx">
       <DependentUpon>202201191741369_ImplementingValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201191851222_updateMovieModel.resx">
+      <DependentUpon>202201191851222_updateMovieModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201191853404_updateMovieModelUpdate.resx">
+      <DependentUpon>202201191853404_updateMovieModelUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

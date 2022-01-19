@@ -23,8 +23,8 @@ namespace Vidly.Controllers
         public ActionResult New()
         {
             var genres = _context.Genres.ToList();
-            var movieFormrmViewModel = new MoviesFormViewModel
-            {
+            var movieFormrmViewModel = new MoviesFormViewModel()
+            {                
                 Genres = genres
             };
             return View("MoviesForm",movieFormrmViewModel);
@@ -33,18 +33,28 @@ namespace Vidly.Controllers
         [HttpPost]
         public ActionResult Save(Movie movie)
         {
-            if (movie.Id != 0)
+            if(!ModelState.IsValid)
             {
-                var movieIndb = _context.Movies.Single(m=>m.Id == movie.Id);
+                var viewModel = new MoviesFormViewModel(movie)
+                {
+                    Genres = _context.Genres.ToList()
+                };
+                return View("MoviesForm", viewModel);
+            }
+
+            if (movie.Id == 0)
+            {
+                movie.DateAdded = DateTime.Today;
+                _context.Movies.Add(movie);
+                
+            }
+            else
+            {
+                var movieIndb = _context.Movies.Single(m => m.Id == movie.Id);
                 movieIndb.Name = movie.Name;
                 movieIndb.ReleaseDate = movie.ReleaseDate;
                 movieIndb.NumberInStock = movie.NumberInStock;
                 movieIndb.GenreId = movie.GenreId;
-            }
-            else
-            {
-                movie.DateAdded = DateTime.Today;
-                _context.Movies.Add(movie);
             }
             _context.SaveChanges();
             return RedirectToAction("Index", "Movies");
@@ -54,11 +64,9 @@ namespace Vidly.Controllers
         {
             var movieIndb = _context.Movies.Include("Genre").SingleOrDefault(m => m.Id == Id);
             
-            var movieFormViewModel = new MoviesFormViewModel
-            {
-                Movie = movieIndb,
+            var movieFormViewModel = new MoviesFormViewModel(movieIndb)
+            {                
                 Genres = _context.Genres.ToList()
-
             };
             return View("MoviesForm", movieFormViewModel);
         }
