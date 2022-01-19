@@ -27,16 +27,27 @@ namespace Vidly.Controllers
             {
                 Genres = genres
             };
-            return View(movieFormrmViewModel);
+            return View("MoviesForm",movieFormrmViewModel);
         }
+
+        [HttpPost]
         public ActionResult Save(Movie movie)
         {
-            if (movie != null)
+            if (movie.Id != 0)
             {
-                _context.Movies.Add(movie);
-                _context.SaveChanges();
+                var movieIndb = _context.Movies.Single(m=>m.Id == movie.Id);
+                movieIndb.Name = movie.Name;
+                movieIndb.ReleaseDate = movie.ReleaseDate;
+                movieIndb.NumberInStock = movie.NumberInStock;
+                movieIndb.GenreId = movie.GenreId;
             }
-            return RedirectToAction("Index", "Movie");
+            else
+            {
+                movie.DateAdded = DateTime.Today;
+                _context.Movies.Add(movie);
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Movies");
         }
 
         public ActionResult Edit(int Id)
