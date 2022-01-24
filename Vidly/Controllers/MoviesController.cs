@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
 using Vidly.ViewModel;
+using System.Data.Entity;
 
 namespace Vidly.Controllers
 {
@@ -72,8 +73,9 @@ namespace Vidly.Controllers
         }
         public ActionResult Index()
         {
-            var movies = _context.Movies.Include("Genre");
-            return View(movies);
+            //var movies = _context.Movies.Include("Genre");
+            //return View(movies);
+            return View();
         }
         public ActionResult Random()
         {
