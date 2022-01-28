@@ -32,6 +32,7 @@ namespace Vidly.Controllers
             return View("MoviesForm",movieFormrmViewModel);
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         [HttpPost]
         public ActionResult Save(Movie movie)
         {
@@ -62,6 +63,7 @@ namespace Vidly.Controllers
             return RedirectToAction("Index", "Movies");
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Edit(int Id)
         {
             var movieIndb = _context.Movies.Include("Genre").SingleOrDefault(m => m.Id == Id);
